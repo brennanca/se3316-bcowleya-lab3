@@ -5,6 +5,7 @@ const app = express();
 app.use('/', express.static('static'));
 
 app.use(express.json());
+var mysql = require('mysql');
 
 var database = mysql.createConnection({
     host: "localhost",
@@ -258,7 +259,7 @@ app.get('/artist', (req, res) => {
 app.get('/lists/:name', (req, res) => {
 
     
-    
+    var listName = req.params.name;
 
     database.query("CREATE TABLE ?? (trackID INT NULL,trackDuration INT NOT NULL,trackInterest VARCHAR(45) NULL,trackListens VARCHAR(45) NULL,trackNumber VARCHAR(45) NULL,trackTitle VARCHAR(45) NULL,PRIMARY KEY (trackDuration));", [listName]);
     
@@ -268,7 +269,7 @@ app.get('/lists/:name', (req, res) => {
     // newList.name = req.params.body;
     
 
-    res.send(newList);
+    // res.send(newList);
 });
 
 //save tracks to list
