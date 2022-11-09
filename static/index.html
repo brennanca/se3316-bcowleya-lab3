@@ -17,8 +17,8 @@
 
 <div class="form-container">
     <form class="form">
-        <input id="searchBarNumber" type="text" class="input" placeholder="search an artist"/>
-        <button onclick="myFunctionArtist()">search</button>
+        <input id="searchBarArtist" type="text" class="input" placeholder="search an artist"/>
+        <button id="artistSearch">search</button>
         
     </form>
 
@@ -26,8 +26,8 @@
 
 <div class="form-container">
     <form class="form">
-        <input id="searchBar" type="text" class="input" placeholder="search an album"/>
-        <button onclick="myFunctionAlbum()">search</button>
+        <input id="searchBarAlbum" type="text" class="input" placeholder="search an album"/>
+        <button id="albumSearch">search</button>
         
     </form>
 
@@ -35,12 +35,14 @@
 
 <div class="form-container">
     <form class="form">
-        <input id="searchBar" type="text" class="input" placeholder="search a track"/>
-        <button onclick="myFunctionTrack()">search</button>
+        <input id="searchBarTrack" type="text" class="input" placeholder="search a track"/>
+        <button id="trackSearch">search</button>
         
     </form>
 
 </div>
+
+<div id="dataTable"></div>
 
 
 </body>

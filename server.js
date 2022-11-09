@@ -45,7 +45,7 @@ const csv = require('csv-parser');
 
 
 var artistArray = []; 
-fs.createReadStream("lab3-data 2/raw_artists.csv").pipe(csv({})).on("data", (data) => artistArray.push(data)).on("end", () => {/console.log(artistArray)/});
+fs.createReadStream("lab3-data 2/raw_artists.csv").pipe(csv({})).on("data", (data) => artistArray.push(data)).on("end", () => {console.log(artistArray)});
 
 var trackArray = [];
 fs.createReadStream("lab3-data 2/raw_tracks.csv").pipe(csv({})).on("data", (data) => trackArray.push(data)).on("end", () => {/console.log(trackArray)/});
@@ -78,7 +78,10 @@ app.get('/artist', (req, res) => {
             artistContact: tempArray[x].artist_contact,
             artistLocation: tempArray[x].artist_location,
             artistURL: tempArray[x].artist_url,
-            artistWebsite: tempArray[x].artist_website
+            artistWebsite: tempArray[x].artist_website,
+            artistFavorites: tempArray[x].artist_favorites,
+            artistDateCreated: tempArray[x].artist_date_created
+
 
         }
         finalArray.push(json);
@@ -102,7 +105,7 @@ app.get('/track', (req, res) => {
     let finalArray = [];
     for(x = 0; x < tempArray.length; x++) {
         const json = {
-            trackTitle: tempArray[x].track_name,
+            trackTitle: tempArray[x].track_title,
             trackID: tempArray[x].track_id,
             trackDuration: tempArray[x].track_duration,
             trackListens: tempArray[x].track_listens,
