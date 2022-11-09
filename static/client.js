@@ -8,9 +8,16 @@ window.onload=function() {
         fetch("http://localhost:3000/artist?artistNameDetails=" + artistBox, { method: 'GET', headers: new Headers({ 'Content-Type': 'application/json' }) })
             .then(res => res.json())
             .then(data => { 
-                var table = document.createElement('table');
                 var divBox = document.getElementById("dataTable");
+                if(divBox.hasChildNodes()) {
+                    divBox.innerHTML = '';
+                } 
+                var table = document.createElement('table');
+                
+                
                 divBox.appendChild(table);
+
+                
 
                 let artistRow = document.createElement('tr');
                 table.appendChild(artistRow);
@@ -71,9 +78,14 @@ window.onload=function() {
     
         fetch("http://localhost:3000/album?albumNameDetails=" + artistBox, { method: 'GET', headers: new Headers({ 'Content-Type': 'application/json' }) })
             .then(res => res.json())
-            .then(data => { 
-                var table = document.createElement('table');
+            .then(data => {
                 var divBox = document.getElementById("dataTable");
+                if(divBox.hasChildNodes()) {
+                    divBox.innerHTML = '';
+                } 
+                var table = document.createElement('table');
+                
+                
                 divBox.appendChild(table);
 
                 let artistRow = document.createElement('tr');
@@ -152,8 +164,13 @@ window.onload=function() {
         fetch("http://localhost:3000/track?trackNameDetails=" + artistBox, { method: 'GET', headers: new Headers({ 'Content-Type': 'application/json' }) })
             .then(res => res.json())
             .then(data => { 
-                var table = document.createElement('table');
                 var divBox = document.getElementById("dataTable");
+                if(divBox.hasChildNodes()) {
+                    divBox.innerHTML = '';
+                } 
+                var table = document.createElement('table');
+                
+                
                 divBox.appendChild(table);
 
                 let artistRow = document.createElement('tr');
@@ -233,3 +250,4 @@ window.onload=function() {
 
 
 //then fetch
+// list[0].map(e => e.newTrack.map(...))

@@ -1,9 +1,19 @@
 const express = require('express');
+
 const app = express();
 
 app.use('/', express.static('static'));
 
 app.use(express.json());
+
+var database = mysql.createConnection({
+    host: "localhost",
+    port: 3306,
+    user: "root",
+    password: "$Bunnysex69",
+    database: "3316database"
+});
+
 
 // app.get()
 // app.post()
@@ -242,3 +252,25 @@ app.get('/artist', (req, res) => {
 
     res.send(finalArray);
 });
+
+
+//lists 
+app.get('/lists/:name', (req, res) => {
+
+    
+    
+
+    database.query("CREATE TABLE ?? (trackID INT NULL,trackDuration INT NOT NULL,trackInterest VARCHAR(45) NULL,trackListens VARCHAR(45) NULL,trackNumber VARCHAR(45) NULL,trackTitle VARCHAR(45) NULL,PRIMARY KEY (trackDuration));", [listName]);
+    
+
+    // const newList = req.body;
+    // console.log(newList);
+    // newList.name = req.params.body;
+    
+
+    res.send(newList);
+});
+
+//save tracks to list
+
+
