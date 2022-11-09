@@ -5,7 +5,7 @@ window.onload=function() {
         const artistBox = document.getElementById("searchBarArtist").value;
         
     
-        fetch("http://localhost:3000/artist?artistNameDetails=" + artistBox, { method: 'GET', headers: new Headers({ 'Content-Type': 'application/json' }) })
+        fetch("http://" + window.location.host + "/artist?artistNameDetails=" + artistBox, { method: 'GET', headers: new Headers({ 'Content-Type': 'application/json' }) })
             .then(res => res.json())
             .then(data => { 
                 var divBox = document.getElementById("dataTable");
@@ -61,7 +61,7 @@ window.onload=function() {
                 }
 
 
-                console.log(data);
+                //console.log(data);
             })
             .catch(err => console.log(err));
         
@@ -76,7 +76,7 @@ window.onload=function() {
         const artistBox = document.getElementById("searchBarAlbum").value;
         
     
-        fetch("http://localhost:3000/album?albumNameDetails=" + artistBox, { method: 'GET', headers: new Headers({ 'Content-Type': 'application/json' }) })
+        fetch("http://" + window.location.host + "/album?albumNameDetails=" + artistBox, { method: 'GET', headers: new Headers({ 'Content-Type': 'application/json' }) })
             .then(res => res.json())
             .then(data => {
                 var divBox = document.getElementById("dataTable");
@@ -146,7 +146,7 @@ window.onload=function() {
                 }
 
 
-                console.log(data);
+                //console.log(data);
             })
             .catch(err => console.log(err));
         
@@ -161,7 +161,7 @@ window.onload=function() {
         const artistBox = document.getElementById("searchBarTrack").value;
         
     
-        fetch("http://localhost:3000/track?trackNameDetails=" + artistBox, { method: 'GET', headers: new Headers({ 'Content-Type': 'application/json' }) })
+        fetch("http://" + window.location.host + "/track?trackNameDetails=" + artistBox, { method: 'GET', headers: new Headers({ 'Content-Type': 'application/json' }) })
             .then(res => res.json())
             .then(data => { 
                 var divBox = document.getElementById("dataTable");
@@ -232,7 +232,7 @@ window.onload=function() {
                 }
 
 
-                console.log(data);
+                //console.log(data);
             })
             .catch(err => console.log(err));
         
@@ -240,6 +240,61 @@ window.onload=function() {
         
     });
 
+
+    var buttonPlaylist = document.getElementById("createPlaylist");
+    buttonPlaylist.addEventListener('click', function (e) {
+        e.preventDefault();
+        const artistBox = document.getElementById("createBarList").value;
+        
+    
+        fetch("http://" + window.location.host + "/lists/" + artistBox, { method: 'GET', headers: new Headers({ 'Content-Type': 'application/json' }) })
+            .then(res => res.json())
+            .then(data => {})
+            .catch(err => console.log(err));
+        
+            
+        
+    });
+
+
+    var buttonTrackPlaylist = document.getElementById("submitTracks");
+    buttonTrackPlaylist.addEventListener('click', function (e) {
+        e.preventDefault();
+        const tracksToSend = document.getElementById("addTracks").value;
+        const playListNumber = document.getElementById("addTracksPlaylist").value;
+        var trackID = tracksToSend.toString().split(",");
+        
+        //clear if anything currently exists
+        fetch("http://" + window.location.host + "/clearPlaylist/" + playListNumber, {method: 'PUT', headers: new Headers({'Content-Type': 'application/json'})})
+            .then(res => res.json())
+            .then(data => {
+
+            })
+            .catch(err => console.log(err));
+
+    
+        for (x = 0; x < trackID.length; x++) {
+
+            fetch("http://" + window.location.host + "/track/" + trackID[x], { method: 'GET', headers: new Headers({ 'Content-Type': 'application/json' }) })
+                .then(res => res.json())
+                .then(data => {
+                    fetch("http://" + window.location.host + "/listsPlaylist/" + playListNumber, {method: 'PUT', body: JSON.stringify(data), headers: new Headers({'Content-Type': 'application/json'})})
+                        .then(res => res.json())
+                        .then(data => {
+
+                        })
+                        .catch(err => console.log(err));
+                })
+                .catch(err => console.log(err));
+        }
+        
+        
+            
+        
+    });
+
+
+    
 
 }
 

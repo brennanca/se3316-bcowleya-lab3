@@ -56,7 +56,7 @@ const csv = require('csv-parser');
 
 
 var artistArray = []; 
-fs.createReadStream("lab3-data 2/raw_artists.csv").pipe(csv({})).on("data", (data) => artistArray.push(data)).on("end", () => {console.log(artistArray)});
+fs.createReadStream("lab3-data 2/raw_artists.csv").pipe(csv({})).on("data", (data) => artistArray.push(data)).on("end", () => {/console.log(artistArray)/});
 
 var trackArray = [];
 fs.createReadStream("lab3-data 2/raw_tracks.csv").pipe(csv({})).on("data", (data) => trackArray.push(data)).on("end", () => {/console.log(trackArray)/});
@@ -255,13 +255,13 @@ app.get('/artist', (req, res) => {
 });
 
 
-//lists 
+//create lists 
 app.get('/lists/:name', (req, res) => {
 
     
     var listName = req.params.name;
 
-    database.query("CREATE TABLE ?? (trackID INT NULL,trackDuration INT NOT NULL,trackInterest VARCHAR(45) NULL,trackListens VARCHAR(45) NULL,trackNumber VARCHAR(45) NULL,trackTitle VARCHAR(45) NULL,PRIMARY KEY (trackDuration));", [listName]);
+    database.query("CREATE TABLE ?? (trackID INT NOT NULL,trackDuration INT NULL,trackInterest VARCHAR(45) NULL,trackListens VARCHAR(45) NULL,trackNumber VARCHAR(45) NULL,trackTitle VARCHAR(45) NULL,PRIMARY KEY (trackID));", [listName]);
     
 
     // const newList = req.body;
@@ -272,6 +272,45 @@ app.get('/lists/:name', (req, res) => {
     // res.send(newList);
 });
 
+//save track ids to lists
+// app.get('/lists/:name', (req, res) => {
+
+    
+//     var listName = req.params.name;
+
+//     database.query("CREATE TABLE ?? (trackID INT NOT NULL,trackDuration INT NULL,trackInterest VARCHAR(45) NULL,trackListens VARCHAR(45) NULL,trackNumber VARCHAR(45) NULL,trackTitle VARCHAR(45) NULL,PRIMARY KEY (trackID));", [listName]);
+    
+
+//     // const newList = req.body;
+//     // console.log(newList);
+//     // newList.name = req.params.body;
+    
+
+//     // res.send(newList);
+// });
+
 //save tracks to list
+
+
+app.put('/listsPlaylist/:name', (req, res) => {
+
+    database.query("INSERT INTO ?? VALUES (?, ?, ?, ?, ?, ?);", 
+        [req.params.name, req.body.trackID, req.body.trackDuration, req.body.trackInterest, req.body.trackListens, req.body.trackNumber, req.body.trackTitle], (err) => (console.log(err)));
+    res.json("successfully added")
+});
+
+//clear playlist of tracks
+app.put('/clearPlaylist/:name', (req, res) => {
+    database.query("TRUNCATE TABLE ??;", [req.params.name], (err) => (console.log(err)));
+    
+    
+});
+
+app.get('/getPlaylist', (req, res) => {
+    database.query();
+    
+    
+});
+
 
 
