@@ -261,7 +261,8 @@ app.get('/lists/:name', (req, res) => {
     
     var listName = req.params.name;
 
-    database.query("CREATE TABLE ?? (trackID VARCHAR(60) NOT NULL,trackDuration TEXT NULL,trackInterest VARCHAR(60) NULL,trackListens VARCHAR(60) NULL,trackNumber VARCHAR(60) NULL,trackTitle VARCHAR(60) NULL,PRIMARY KEY (trackID)) CHARSET=utf8mb4;", [listName]);
+    database.query("CREATE TABLE ?? (trackID VARCHAR(60) NOT NULL,trackDuration TEXT NULL,trackInterest VARCHAR(60) NULL,trackListens VARCHAR(60) NULL,trackNumber VARCHAR(60) NULL,trackTitle VARCHAR(60) NULL,PRIMARY KEY (trackID)) CHARSET=utf8mb4;", [listName], (err, data) => {res.send(err)});
+    
     
 
     // const newList = req.body;
@@ -295,8 +296,8 @@ app.get('/lists/:name', (req, res) => {
 app.put('/listsPlaylist/:name', (req, res) => {
 
     database.query("INSERT INTO ?? VALUES (?, ?, ?, ?, ?, ?);", 
-        [req.params.name, req.body.trackID, req.body.trackDuration, req.body.trackInterest, req.body.trackListens, req.body.trackNumber, req.body.trackTitle], (err) => (console.log(err)));
-    res.json("successfully added")
+        [req.params.name, req.body.trackID, req.body.trackDuration, req.body.trackInterest, req.body.trackListens, req.body.trackNumber, req.body.trackTitle], (err) => (res.send(err)));
+    
 });
 
 //clear playlist of tracks

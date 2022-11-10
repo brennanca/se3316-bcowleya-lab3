@@ -249,7 +249,9 @@ window.onload=function() {
     
         fetch("http://" + window.location.host + "/lists/" + artistBox, { method: 'GET', headers: new Headers({ 'Content-Type': 'application/json' }) })
             .then(res => res.json())
-            .then(data => {})
+            .then(data => {
+                alert("A table already exists with this name!");
+            })
             .catch(err => console.log(err));
         
             
@@ -281,7 +283,7 @@ window.onload=function() {
                     fetch("http://" + window.location.host + "/listsPlaylist/" + playListNumber, {method: 'PUT', body: JSON.stringify(data), headers: new Headers({'Content-Type': 'application/json'})})
                         .then(res => res.json())
                         .then(data => {
-
+                            alert("No track with that name!");
                         })
                         .catch(err => console.log(err));
                 })
