@@ -261,7 +261,7 @@ app.get('/lists/:name', (req, res) => {
     
     var listName = req.params.name;
 
-    database.query("CREATE TABLE ?? (trackID INT NOT NULL,trackDuration INT NULL,trackInterest VARCHAR(45) NULL,trackListens VARCHAR(45) NULL,trackNumber VARCHAR(45) NULL,trackTitle VARCHAR(45) NULL,PRIMARY KEY (trackID));", [listName]);
+    database.query("CREATE TABLE ?? (trackID VARCHAR(60) NOT NULL,trackDuration TEXT NULL,trackInterest VARCHAR(60) NULL,trackListens VARCHAR(60) NULL,trackNumber VARCHAR(60) NULL,trackTitle VARCHAR(60) NULL,PRIMARY KEY (trackID)) CHARSET=utf8mb4;", [listName]);
     
 
     // const newList = req.body;
@@ -306,8 +306,11 @@ app.put('/clearPlaylist/:name', (req, res) => {
     
 });
 
-app.get('/getPlaylist', (req, res) => {
-    database.query();
+app.get('/getPlaylist/:name', (req, res) => {
+    database.query("SELECT * FROM ??;", [req.params.name], (err, data) => {
+        console.log(err);
+        console.log(data);
+        res.json(data)});
     
     
 });

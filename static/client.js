@@ -265,12 +265,12 @@ window.onload=function() {
         var trackID = tracksToSend.toString().split(",");
         
         //clear if anything currently exists
-        fetch("http://" + window.location.host + "/clearPlaylist/" + playListNumber, {method: 'PUT', headers: new Headers({'Content-Type': 'application/json'})})
-            .then(res => res.json())
-            .then(data => {
+        // fetch("http://" + window.location.host + "/clearPlaylist/" + playListNumber, {method: 'PUT', headers: new Headers({'Content-Type': 'application/json'})})
+        //     .then(res => res.json())
+        //     .then(data => {
 
-            })
-            .catch(err => console.log(err));
+        //     })
+        //     .catch(err => console.log(err));
 
     
         for (x = 0; x < trackID.length; x++) {
@@ -287,6 +287,102 @@ window.onload=function() {
                 })
                 .catch(err => console.log(err));
         }
+        
+        
+            
+        
+    });
+
+    var buttonSearchPlaylist = document.getElementById("findPlaylistSubmit");
+    buttonSearchPlaylist.addEventListener('click', function (e) {
+        e.preventDefault();
+        const playlist = document.getElementById("findPlaylist").value;
+        
+        
+        
+        fetch("http://" + window.location.host + "/getPlaylist/" + playlist, {method: 'GET', headers: new Headers({'Content-Type': 'application/json'})})
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                var divBox = document.getElementById("dataTable");
+                if(divBox.hasChildNodes()) {
+                    divBox.innerHTML = '';
+                } 
+                var table = document.createElement('table');
+                
+                
+                divBox.appendChild(table);
+
+                let artistRow = document.createElement('tr');
+                table.appendChild(artistRow);
+
+                let tableHeader2 = document.createElement('th');
+                tableHeader2.appendChild(document.createTextNode("trackID"));
+                artistRow.appendChild(tableHeader2);
+
+                let tableHeader1 = document.createElement('th');
+                tableHeader1.appendChild(document.createTextNode("trackDuration"));
+                artistRow.appendChild(tableHeader1);
+
+            
+
+                let tableHeader3 = document.createElement('th');
+                tableHeader3.appendChild(document.createTextNode("trackInterest"));
+                artistRow.appendChild(tableHeader3);
+
+                let tableHeader4 = document.createElement('th');
+                tableHeader4.appendChild(document.createTextNode("trackListens"));
+                artistRow.appendChild(tableHeader4);
+
+                let tableHeader5 = document.createElement('th');
+                tableHeader5.appendChild(document.createTextNode("trackNumber"));
+                artistRow.appendChild(tableHeader5);
+
+                let tableHeader6 = document.createElement('th');
+                tableHeader6.appendChild(document.createTextNode("trackTitle"));
+                artistRow.appendChild(tableHeader6);
+
+                
+
+
+                for(let i = 0; i < data.length; i++) {
+                    let tableRow = document.createElement('tr');
+                    table.appendChild(tableRow);
+                    for(let x = 0; x < 1; x++) {
+                        let tableData = document.createElement('td');
+
+                        let tableData1 = document.createElement('td');
+                        tableRow.appendChild(tableData1);
+                        tableData1.appendChild(document.createTextNode(data[Object.keys(data)[i]].trackID));
+
+                        tableRow.appendChild(tableData);
+                        tableData.appendChild(document.createTextNode(data[Object.keys(data)[i]].trackDuration));
+
+                    
+
+                        let tableData2 = document.createElement('td');
+                        tableRow.appendChild(tableData2);
+                        tableData2.appendChild(document.createTextNode(data[Object.keys(data)[i]].trackInterest));
+
+                        let tableData3 = document.createElement('td');
+                        tableRow.appendChild(tableData3);
+                        tableData3.appendChild(document.createTextNode(data[Object.keys(data)[i]].trackListens));
+
+                        let tableData4 = document.createElement('td');
+                        tableRow.appendChild(tableData4);
+                        tableData4.appendChild(document.createTextNode(data[Object.keys(data)[i]].trackNumber));
+
+                        let tableData5 = document.createElement('td');
+                        tableRow.appendChild(tableData5);
+                        tableData5.appendChild(document.createTextNode(data[Object.keys(data)[i]].trackTitle));
+
+                        
+                    }
+                }
+            })
+            .catch(err => console.log(err));
+
+    
         
         
             
